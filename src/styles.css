@@ -6,7 +6,7 @@ body {
 }
 
 body {
-  background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png);
+  background-image: url(assets/Android-Lollipop-wallpapers.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -28,7 +28,7 @@ body {
   height: 100%;
 }
 
-.positronx {
+.neednet-header-link {
   text-decoration: none;
   color: #ffffff;
 }
@@ -73,13 +73,13 @@ body {
   z-index: -1;
 }
 
-.login-wrapper .example-form {
+.login-wrapper .neednet-form {
   min-width: 100%;
   max-width: 300px;
   width: 100%;
 }
 
-.login-wrapper .example-full-width,
+.login-wrapper .neednet-full-width,
 .login-wrapper .btn-block {
   width: 100%;
 }
