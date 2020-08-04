@@ -38,11 +38,7 @@
                 </button>
                 <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
                 <div *ngIf="f.mobileNumber.touched && f.mobileNumber.invalid" class="alert alert-danger">
-
-                    <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required.</div>
-
-                    <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Mobile Number.</div>
-
+                    <div *ngIf="f.mobileNumber.errors.pattern">Please enter valid 10 digit Mobile Number</div>
                 </div>
             </form>
         </div>
