@@ -1,36 +1,50 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Register</mat-card-title>
-    </mat-card-header>
+<div><br /><br /></div>
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Welcome to NeedNet - A network to fulfill all your needs</h4>
+        <div class="card-body">
+            <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number</label>
+                    <input type="text" formControlName="mobileNumber" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.mobileNumber.errors }" />
+                    <div *ngIf="submitted && f.mobileNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                    </div>
+                </div>
+                <button [disabled]="loading" class="btn btn-primary" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Register
+                </button>
+                <button [disabled]="loading" class="btn btn-primary" (click)="onReset()">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Reset
+                </button>
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                <div *ngIf="f.mobileNumber.touched && f.mobileNumber.invalid" class="alert alert-danger">
 
-    <form [formGroup]="resgisterForm" class="example-form">
+                    <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required.</div>
 
-      <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
-        </mat-form-field>
+                    <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Mobile Number.</div>
 
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <mat-label>Choose a role...</mat-label>
-          <mat-select [(value)]="selected">
-            <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-      </mat-card-content>
-
-      <button mat-stroked-button color="accent" class="btn-block">Register</button>
-
-    </form>
-  </mat-card>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
