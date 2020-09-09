@@ -10,6 +10,7 @@
                         [ngClass]="{ 'is-invalid': submitted && f.mobileNumber.errors }" />
                     <div *ngIf="submitted && f.mobileNumber.errors" class="invalid-feedback">
                         <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required</div>
+                        <div *ngIf="f.mobileNumber.errors.pattern(mobileNumberValidation)"> It is not a valid mobile number.</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -22,10 +23,11 @@
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" formControlName="confirmPassword" class="form-control"
+                    <input type="password" formControlName="confirmPassword" class="form-control" appConfirmEqualValidator="password"
                         [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
                     <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
                         <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                        <div *ngIf="f.confirmPassword.errors.notEqual">Password confirm do not match</div>
                     </div>
                 </div>
                 <button [disabled]="loading" class="btn btn-primary" type="submit">
@@ -38,7 +40,18 @@
                 </button>
                 <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
                 <div *ngIf="f.mobileNumber.touched && f.mobileNumber.invalid" class="alert alert-danger">
-                    <div *ngIf="f.mobileNumber.errors.pattern">Please enter valid 10 digit Mobile Number</div>
+
+                    <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required.</div>
+
+                    <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Mobile Number.</div>
+
+                    <div *ngIf="f.mobileNumber.errors.pattern(mobileNumberValidation)">It is not a valid mobile number.</div>
+
+                </div>       
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>     
+                <div *ngIf="f.confirmPassword.touched && f.confirmPassword.errors?.notEqual" class="alert alert-danger">
+
+                <div *ngIf="f.confirmPassword.errors.notEqual">Password confirm do not match</div>
                 </div>
             </form>
         </div>

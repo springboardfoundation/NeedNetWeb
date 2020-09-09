@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators,  } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
 
-    loading = false;
+      loading = false;
     submitted = false;
     returnUrl: string;
     error = '';
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     });
 
     constructor(private formBuilder: FormBuilder,
-        private router: Router) {
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -36,8 +36,9 @@ export class RegisterComponent implements OnInit {
     get f() { return this.registerForm.controls; }
 
     onFormSubmit(): void {
-        this.submitted = true;
 
+        
+        this.submitted = true;
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
@@ -51,7 +52,9 @@ export class RegisterComponent implements OnInit {
 
     onReset(): void {
          this.submitted = false;
-        this.registerForm.reset();
+         this.registerForm.reset();
     }
+ }
 
-}
+
+  

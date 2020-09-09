@@ -1,0 +1,58 @@
+<div><br/><br/></div>
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Welcome to NeedNet - A network to fulfill all your needs</h4>
+        <div class="card-body">
+            <form [formGroup]="userForm" (ngSubmit)="onProfileSubmit()">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" formControlName="fullname" class="form-control" placeholder="Enter Full Name" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
+                    <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+                        <div *ngIf="f.fullname.errors.required">Full Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" formControlName="email" class="form-control" placeholder="Enter a valid email address"[ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="place">Place</label>
+                    <input type="text" formControlName="place" class="form-control" placeholder="City, State, Country"[ngClass]="{ 'is-invalid': submitted && f.place.errors }" />
+                    <div *ngIf="submitted && f.place.errors" class="invalid-feedback">
+                        <div *ngIf="f.place.errors.required">Place is required</div>
+                    </div>
+                </div>
+                <div class="group-form">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="text" formControlName="age" class="form-control" size="10" placeholder="Enter your age"[ngClass]="{ 'is-invalid': submitted && f.age.errors }" />
+                    <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+                        <div *ngIf="f.age.errors.required">Place is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <input type="radio" id="male" name="gender" value="male" class="form-control">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female" class="form-control">
+                    <label for="female">Female</label>
+                </div>
+            </div>
+                <div class="form-group">
+                    <label for="occupation">Occupation</label>
+                    <input type="text" formControlName="occupation" class="form-control" placeholder="Enter your occupation"/>
+                </div>
+
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Complete Registration
+                </button>
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+            </form>
+        </div>
+    </div>
+</div>
+

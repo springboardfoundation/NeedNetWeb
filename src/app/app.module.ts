@@ -4,6 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmEqualValidatorDirective } from './register/confirm-equal-validator.directive';
+import { MobileNumberValidationDirective } from './register/mobile-number-validation.directive';
+
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
@@ -16,6 +19,7 @@ import { AuthenticationService } from './_services';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import { UserProfileComponent } from './userprofile/userprofile.component';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -31,7 +35,10 @@ import { MaterialModule } from './material.module';
         AppComponent,
         HomeComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        UserProfileComponent,
+        ConfirmEqualValidatorDirective,
+        MobileNumberValidationDirective
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthenticationService] },
