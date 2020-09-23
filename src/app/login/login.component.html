@@ -1,6 +1,7 @@
 
+<div class="float-right">
 <div><br/><br/></div>
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="col-md-10 offset-md-3 mt-5">
     <div class="card">
         <h4 class="card-header">Welcome to NeedNet - A network to fulfill all your needs</h4>
         <div class="card-body">
@@ -19,7 +20,7 @@
                         <div *ngIf="f.password.errors.required">Password is required</div>
                     </div>
                 </div>
-                <button [disabled]="loading" class="btn btn-primary">
+                <button [disabled]="loading" class="btn btn-primary btn-lg btn-block">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Login
                 </button>
@@ -28,4 +29,4 @@
         </div>
     </div>
 </div>
-
+</div>

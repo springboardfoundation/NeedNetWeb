@@ -20,7 +20,9 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { UserProfileComponent } from './userprofile/userprofile.component';
+import { ExampleProfileComponent } from './exampleprofile/exampleprofile.component'
 import { MaterialModule } from './material.module';
+import { from } from 'rxjs';
 
 @NgModule({
     imports: [
@@ -37,6 +39,7 @@ import { MaterialModule } from './material.module';
         LoginComponent,
         RegisterComponent,
         UserProfileComponent,
+        ExampleProfileComponent,
         ConfirmEqualValidatorDirective,
         MobileNumberValidationDirective
     ],

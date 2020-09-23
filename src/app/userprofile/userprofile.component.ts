@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 
 
-@Component({ templateUrl: 'userprofile.component.html' })
+@Component({
+    templateUrl: 'userprofile.component.html'
+})
 export class UserProfileComponent{
     loading = false;
     submitted = false;

@@ -1,5 +1,6 @@
+<div class="float-right">
 <div><br /><br /></div>
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="col-md-10 offset-md-3 mt-5">
     <div class="card">
         <h4 class="card-header">Welcome to NeedNet - A network to fulfill all your needs</h4>
         <div class="card-body">
@@ -34,7 +35,7 @@
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Register
                 </button>
-                <button [disabled]="loading" class="btn btn-primary" (click)="onReset()">
+                <button [disabled]="loading" class="btn btn-light float-right" (click)="onReset()">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Reset
                 </button>
@@ -56,4 +57,5 @@
             </form>
         </div>
     </div>
+</div>
 </div>
