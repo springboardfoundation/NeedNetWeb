@@ -1,7 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+import { Button } from '@mui/material';
 
 function App() {
+
+  function clickHandler(val) {
+    console.log(`${val} button clicked`)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +23,7 @@ function App() {
         >
           Learn React
         </a>
+        <Button variant='contained' onClick={() => clickHandler('Abd')} >Abd</Button>
       </header>
     </div>
   );
