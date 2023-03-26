@@ -1,0 +1,148 @@
+.networkForNeedTitle {
+    margin: 24px 120px 11px 0;
+    font-size: 3vw;
+    font-family: Poppins;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+.titleDescription {
+    font-family: Poppins;
+    font-size: 1vw;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.27px;
+    color: #fff;
+}
+
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    gap: 5vw;
+    background-image: url("../../assets/signin_bg.png");
+    background-size: cover;
+}
+
+.flex-item-left {
+    background-color: transparent;
+    padding: 16px;
+    width: 50vw;
+}
+
+.flex-item-right {
+    padding: 5dvh;
+    border-radius: 10px;
+    box-shadow: 0 18px 24px 0 rgba(21, 34, 81, 0.06);
+    background-color: #fff;
+}
+
+.flex-container-signup-mobile-number {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    gap: 5vw;
+    background-image: url("../../assets/signup_bg.png");
+    background-size: cover;
+}
+
+.flex-item-left-signup-mobile-number {
+    background-color: transparent;
+    padding: 16px;
+    width: 50vw;
+}
+
+.flex-item-right-signup-mobile-number {
+    padding: 5dvh;
+    border-radius: 10px;
+    box-shadow: 0 18px 24px 0 rgba(21, 34, 81, 0.06);
+    background-color: #fff;
+}
+
+.flex-container-signup-otp-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    gap: 5vw;
+    background-image: url("../../assets/userprofile_bg.png");
+    background-size: cover;
+}
+
+.flex-item-left-signup-otp-form {
+    background-color: transparent;
+    padding: 16px;
+    width: 50vw;
+}
+
+.flex-item-right-signup-otp-form {
+    padding: 5dvh;
+    border-radius: 10px;
+    box-shadow: 0 18px 24px 0 rgba(21, 34, 81, 0.06);
+    background-color: #fff;
+}
+
+.flex-container-user-profile-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    gap: 5vw;
+    background-image: url("../../assets/userprofile_bg.png");
+    background-size: cover;
+}
+
+.flex-item-left-user-profile-form {
+    background-color: transparent;
+    padding: 16px;
+    width: 50vw;
+}
+
+.flex-item-right-user-profile-form {
+    padding: 5dvh;
+    border-radius: 10px;
+    box-shadow: 0 18px 24px 0 rgba(21, 34, 81, 0.06);
+    background-color: #fff;
+}
+
+/* Responsive layout - makes a one column-layout instead of a two-column layout */
+@media (max-width: 800px) {
+    .flex-container {
+        flex-direction: column;
+        gap: 0vh;
+        height: 95vh;
+    }
+
+    .flex-item-left {
+        width: 100vw;
+        margin-top: 0px;
+    }
+
+    .flex-item-right {
+        padding: 4dvh;
+    }
+
+    .networkForNeedTitle {
+        font-size: 3vh;
+    }
+
+    .titleDescription {
+        font-size: 2vh;
+    }
+}
+
