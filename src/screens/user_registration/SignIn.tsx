@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserRegistration.css';
-//import '.src/screens/forgot_password/ForgetPasswordMain.tsx';
+import '.src/screens/forgot_password/ForgetPassword.tsx';
 import SignInBg from '../../assets/signin_bg.png'; // gives image path
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
