@@ -14,6 +14,7 @@ import SetNewPassword from "./screens/forget_password/SetNewPassword";
 import SignUpBg from "./assets/signup_bg.png";
 import SignUpBackgroundWallpaper from "./screens/sign_up/SignUpBackgroundWallpaper";
 import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+
 function App() {
   return (
     <BrowserRouter>
