@@ -25,7 +25,7 @@ function SignUpOtpForm () {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Mobile number</Form.Label>
-                        <PhoneInput country={'in'}/>
+                        <PhoneInput country={'in'} disabled={true}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">

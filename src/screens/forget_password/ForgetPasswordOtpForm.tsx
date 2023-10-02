@@ -25,7 +25,7 @@ function ForgetPasswordOtpForm() {
                     <br/>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Mobile number</Form.Label>
-                        <PhoneInput country={'in'} />
+                        <PhoneInput country={'in'} disabled={true} />
                     </Form.Group><br/>
                     <Form.Group>
                         <Form.Label>one Time password(OTP)</Form.Label>
