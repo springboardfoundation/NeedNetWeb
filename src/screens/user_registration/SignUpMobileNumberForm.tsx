@@ -7,40 +7,58 @@ import Button from 'react-bootstrap/Button';
 import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom"
+
 
 function SignUpMobileNumberForm () {
-    const [values, setValues] = useState({
-        mobileNumber:'',
-    })
+    const navigate = useNavigate()
+    const [mobileNumber, setMobileNumber] = useState('');
     const [errors,setErrors] = useState({
         mobileNumber:undefined,
     })
     const handleMobileNumber = (event:any) => {
-        setValues(event);
+        setMobileNumber(event);
     }
 
     const handleValidate = (event:any) => {
         event.preventDefault();
-        setErrors(Validation(values));
-    }
-    function Validation(values:any){
-        const errors:any={};
-        console.log(values);
-        //const mobileNumberRegex = /^[0-9]{10}$/g;
 
-        if(values.mobileNumber === ""){
-            errors.mobileNumber="Mobile number is required";
+        let error = validation(mobileNumber);
+        setErrors(error);
+
+        if(error.mobileNumber !== ""){
+            return;
         }
 
+        try {
+            axios.post(`http://localhost:9001/api/v1/auth/getOtp/${mobileNumber}`)
+                .then(res => {
+                    console.log(res);
+                    navigate(`/signupotpform`,{state:{mobileNumber:res.data.mobileNumber}})
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+        }
+    }
+    function validation(mobileNumber:any){
+        const errors:any={};
+        const mobileNumberRegex = /^[0-9]{12}$/g;
+        if(mobileNumber === ""){
+            errors.mobileNumber="Mobile number is required";
+        }
+        else if(mobileNumberRegex.test(mobileNumber) === false){
+            errors.mobileNumber="Mobile number must be valid";
+        }
+        else{
+            errors.mobileNumber="";
+        }
         return errors;
-    }
-    const changeColor = (event:any) => {
-        event.target.style.borderColor = '#DC3545';
-        event.target.style.boxShadow = '0 0 0 0.25rem rgb(220 53 69 / 25%)';
-    }
-    const changeColor_1 = (event:any) => {
-        event.target.style.borderColor = '#DC3545';
-        event.target.style.boxShadow = 'none';
     }
     return (
         <div className="flex-container-signup-mobile-number">
@@ -48,7 +66,7 @@ function SignUpMobileNumberForm () {
                    <h1 className="networkForNeedTitle">  Network for need </h1>
             </div>
             <div className="flex-item-right-signup-mobile-number">
-                <Form onClick={handleValidate}>
+                <Form >
                     <Form.Group>
                         <Alert.Heading>Sign up</Alert.Heading>
                     </Form.Group>
@@ -62,17 +80,15 @@ function SignUpMobileNumberForm () {
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Mobile number</Form.Label>
                         <PhoneInput country={'in'}
-                                    onChange={(value) => handleMobileNumber(value)}
-                                    onFocus={changeColor}
-                                    onBlur={changeColor_1}/><br/>
+                                    onChange={(value) => handleMobileNumber(value)}/><br/>
                         <div className="error"><small>{errors.mobileNumber}</small></div>
                     </Form.Group>
                     <Form.Group>
                        <Form.Label></Form.Label>
                        </Form.Group>
                     <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg">
-                            <Link to="/signupotpform" className="nav-link">Send One Time Password (OTP)</Link>
+                        <Button variant="primary" size="lg" onClick={handleValidate}>
+                            Send One Time Password (OTP)
                         </Button>
                     </div>
                     <Form.Group>

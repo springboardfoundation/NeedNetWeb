@@ -68,9 +68,13 @@ function SignInForm () {
                     <Form.Group>
                         <Form.Label></Form.Label>
                     </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Don't have an account?<Alert variant="light"><Alert.Link href="/signupmobilenumberform">sign_up</Alert.Link></Alert></Form.Label>
-                    </Form.Group>
+                    <Alert variant="light" style={{display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',}} >
+                        Don't have an account?
+                        <Alert.Link href="/signupmobilenumberform">sign_up</Alert.Link>
+                    </Alert>
+
                 </Form>
             </div>
         </div>

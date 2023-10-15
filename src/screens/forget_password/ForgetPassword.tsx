@@ -11,41 +11,34 @@ import { Link } from "react-router-dom";
 
 
 function ForgetPassword(){
-
-    const [values, setValues] = useState({
-        mobileNumber:'',
-    })
+    const [mobileNumber, setMobileNumber] = useState('');
     const [errors,setErrors] = useState({
         mobileNumber:undefined,
     })
     const handleMobileNumber = (event:any) => {
-        setValues(event);
+        setMobileNumber(event);
+        setErrors(Validation(event));
     }
 
     const handleValidate = (event:any) => {
         event.preventDefault();
-        setErrors(Validation(values));
+        console.log(mobileNumber);
     }
-    function Validation(values:any){
+    function Validation(mobileNumber:any){
         const errors:any={};
-        console.log(values);
-        //const mobileNumberRegex = /^[0-9]{10}$/g;
-
-        if(values.mobileNumber === ""){
+        const mobileNumberRegex = /^[0-9]{12}$/g;
+        if(mobileNumber === ""){
             errors.mobileNumber="Mobile number is required";
         }
-
+        else if(mobileNumberRegex.test(mobileNumber) === false){
+            errors.mobileNumber="Mobile number must be valid";
+        }
+        else{
+            errors.mobileNumber="";
+        }
         return errors;
     }
 
-    const changeColor = (event:any) => {
-        event.target.style.borderColor = '#DC3545';
-        event.target.style.boxShadow = '0 0 0 0.25rem rgb(220 53 69 / 25%)';
-    }
-    const changeColor_1 = (event:any) => {
-        event.target.style.borderColor = '#DC3545';
-        event.target.style.boxShadow = 'none';
-    }
     return (
         <div className="flex-container-forgetpassword-otp-form">
             <div className="flex-item-left-signup-otp-form">
@@ -62,10 +55,9 @@ function ForgetPassword(){
                     </Form.Group><br/>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Mobile number</Form.Label>
-                        <PhoneInput country={'in'}
+                        <PhoneInput country={'in'} isValid={errors.mobileNumber === ""}
                                     onChange={(value) => handleMobileNumber(value)}
-                                    onFocus={changeColor}
-                                    onBlur={changeColor_1}/><br/>
+                                    /><br/>
                         <div className="error"><small>{errors.mobileNumber}</small></div>
                     </Form.Group><br/>
                     <div className="d-grid gap-2">

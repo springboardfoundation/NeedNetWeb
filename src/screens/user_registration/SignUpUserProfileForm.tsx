@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserRegistration.css';
-import SignUpBg from '../../assets/userprofile_bg.png'; // gives image path
+// gives image path
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Button from 'react-bootstrap/Button';
@@ -8,15 +8,19 @@ import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 function SignUpUserProfileForm () {
+
+    const navigate = useNavigate()
+    const location = useLocation();
+
     const [values, setValues] = React.useState({
         fullName: '',
         email: '',
         age: '',
         gender: '',
         terms: '',
-
     })
 
     const [errors,setErrors] = React.useState({
@@ -34,11 +38,13 @@ function SignUpUserProfileForm () {
     const handleValidate = (event: any) => {
         event.preventDefault();
         // @ts-ignore
-        setErrors(Validation(values));
+        setErrors(validation(values));
         console.log(errors);
 
     }
-    function Validation(values:any){
+    function validation(values:any){
+        const mobileNumber = location.state.mobileNumber;
+
         const errors:any={};
         const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
         const ageRegex = /^[0-9]+$/;
@@ -72,7 +78,7 @@ function SignUpUserProfileForm () {
                    <h1 className="networkForNeedTitle">  Network for need </h1>
             </div>
             <div className="flex-item-right-user-profile-form">
-                <Form onClick={handleValidate}>
+                <Form>
                     <Form.Group>
                         <Alert.Heading>User profile</Alert.Heading>
                     </Form.Group>
@@ -113,7 +119,7 @@ function SignUpUserProfileForm () {
                           <Form.Control.Feedback type="invalid">{errors.age}</Form.Control.Feedback>
                       </Col>
                       <Col>
-                        <Form.Check label="Male" type="radio"onChange={(handleChange)}
+                        <Form.Check label="Male" type="radio" onChange={handleChange}
                                     name="gender"
                                     value="Male"/>
                         <Form.Check label="Female" type="radio" onChange={handleChange}
@@ -136,7 +142,7 @@ function SignUpUserProfileForm () {
                                    feedbackType="invalid"/>
                     </Form.Group>
                     <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg">
+                        <Button variant="primary" size="lg" onClick={handleValidate}>
                             Complete registration
                         </Button>
                     </div>
