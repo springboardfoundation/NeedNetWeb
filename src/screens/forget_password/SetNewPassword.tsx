@@ -5,9 +5,13 @@ import Button from 'react-bootstrap/Button';
 import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 function SetNewPassword(){
 
+    const navigate = useNavigate()
+    const [validated, setValidated] = useState(false);
     const [values, setValues] = useState({
         password: '',
         conPassword:'',
@@ -25,10 +29,38 @@ function SetNewPassword(){
     }
     const handleValidate = (event: any) => {
         event.preventDefault();
-        setErrors(Validation(values));
+        setValidated(true);
+
+
+        let error = validation(values);
+        setErrors(errors);
+
+        if(error !== ""){
+            return;
+        }
+
+        try {
+            axios.post(`http://localhost:9001/api/v1/auth/validate`)
+                .then(res => {
+                    let status = res.data.status;
+                    if (status) {
+                        navigate(`src/screens/user_registration/signin`)
+                    } else {
+                        alert("Set password");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+        }
     }
 
-    function Validation(values:any){
+
+    function validation(values:any){
         const errors:any={};
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
@@ -52,7 +84,7 @@ function SetNewPassword(){
                 <h3 className="networkForNeedTitle">  Network for need</h3>
             </div>
             <div className="flex-item-right-signup-otp-form">
-                <Form onClick={handleValidate}>
+                <Form noValidate validated={validated} onSubmit={handleValidate}>
                     <Form.Group>
                         <Alert.Heading>Set a Password</Alert.Heading>
                     </Form.Group>
@@ -65,7 +97,7 @@ function SetNewPassword(){
                         <Form.Control type="password"  placeholder="Enter password"
                                       name="password"
                                       onChange={(handleChange)}
-                                      isInvalid={errors.password}/>
+                                      isInvalid={errors.password} required/>
                         <Form.Label>Min 8,Max 50 characters</Form.Label><br/>
                         <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                     </Form.Group><br/>
@@ -74,12 +106,12 @@ function SetNewPassword(){
                         <Form.Control type="password"  placeholder="Enter password"
                                       name="conPassword"
                                       onChange={handleChange}
-                                      isInvalid={errors.conPassword}/>
+                                      isInvalid={errors.conPassword} required/>
                         <Form.Control.Feedback type="invalid">{errors.conPassword}</Form.Control.Feedback>
                     </Form.Group><br/>
                     <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg">
-                            <Link to="/setnewpasswordform" className="nav-link">Sign In</Link>
+                        <Button  type="submit" variant="primary" size="lg">
+                            Sign In
                         </Button>
                     </div>
                 </Form>
@@ -87,5 +119,6 @@ function SetNewPassword(){
         </div>
     )
 }
+
 
 export default SetNewPassword;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './UserRegistration.css';
 // gives image path
 import PhoneInput from 'react-phone-input-2'
@@ -9,11 +9,14 @@ import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {useLocation, useNavigate} from 'react-router-dom';
+import axios from "axios/index";
 
 function SignUpUserProfileForm () {
 
     const navigate = useNavigate()
     const location = useLocation();
+    const [validated, setValidated] = useState(false);
+
 
     const [values, setValues] = React.useState({
         fullName: '',
@@ -37,9 +40,35 @@ function SignUpUserProfileForm () {
     }
     const handleValidate = (event: any) => {
         event.preventDefault();
+
         // @ts-ignore
-        setErrors(validation(values));
-        console.log(errors);
+        setValidated(true);
+        const mobileNumber = location.state.mobileNumber;
+
+        let error = validation(values);
+        setErrors(error);
+
+        if(error !== ""){
+            return;
+        }
+        try {
+            axios.post(`http://localhost:9001/api/v1/user/register/${mobileNumber}`)
+                .then(res => {
+                    let status = res.data.status;
+                    if (status) {
+                        navigate(`/signupuserprofileform`,{state:{mobileNumber:mobileNumber}})
+                    } else {
+                        alert("Invalid Details");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+        }
 
     }
     function validation(values:any){
@@ -78,7 +107,7 @@ function SignUpUserProfileForm () {
                    <h1 className="networkForNeedTitle">  Network for need </h1>
             </div>
             <div className="flex-item-right-user-profile-form">
-                <Form>
+                <Form noValidate validated={validated} onSubmit={handleValidate}>
                     <Form.Group>
                         <Alert.Heading>User profile</Alert.Heading>
                     </Form.Group>
@@ -91,7 +120,7 @@ function SignUpUserProfileForm () {
                        <Form.Control type="text" placeholder="Enter a full name"
                                      name="fullName"
                                      onChange={handleChange}
-                                     isInvalid={errors.fullName}/>
+                                     isInvalid={errors.fullName} required/>
                         <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -99,7 +128,7 @@ function SignUpUserProfileForm () {
                        <Form.Control type="email" placeholder="Enter a valid email address"
                                      name="email"
                                      onChange={handleChange}
-                                     isInvalid={errors.email}/>
+                                     isInvalid={errors.email} required/>
                         <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                     </Form.Group>
                     <Row>
@@ -115,22 +144,22 @@ function SignUpUserProfileForm () {
                         <Form.Control type="text" placeholder="Enter your age"
                                       name="age"
                                       onChange={handleChange}
-                                      isInvalid={errors.age}/>
+                                      isInvalid={errors.age} required/>
                           <Form.Control.Feedback type="invalid">{errors.age}</Form.Control.Feedback>
                       </Col>
                       <Col>
                         <Form.Check label="Male" type="radio" onChange={handleChange}
                                     name="gender"
-                                    value="Male"/>
+                                    value="Male" required/>
                         <Form.Check label="Female" type="radio" onChange={handleChange}
                                     name="gender"
-                                    value="Female"/>
+                                    value="Female" required/>
                         <Form.Check label="Other"type="radio" onChange={handleChange}
                                     name="gender"
                                     value="Other"
                                     isInvalid={errors.gender}
                                     feedback={errors.gender}
-                                    feedbackType="invalid"/>
+                                    feedbackType="invalid" required/>
                       </Col>
                     </Row>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -139,10 +168,10 @@ function SignUpUserProfileForm () {
                                    checked={false}
                                    isInvalid={errors.terms}
                                    feedback={errors.terms}
-                                   feedbackType="invalid"/>
+                                   feedbackType="invalid" required/>
                     </Form.Group>
                     <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg" onClick={handleValidate}>
+                        <Button type="submit" variant="primary" size="lg" onClick={handleValidate}>
                             Complete registration
                         </Button>
                     </div>

@@ -63,7 +63,7 @@ function SignUpMobileNumberForm () {
     return (
         <div className="flex-container-signup-mobile-number">
             <div className="flex-item-left-signup-mobile-number">
-                   <h1 className="networkForNeedTitle">  Network for need </h1>
+                <h1 className="networkForNeedTitle">  Network for need </h1>
             </div>
             <div className="flex-item-right-signup-mobile-number">
                 <Form >
@@ -72,11 +72,11 @@ function SignUpMobileNumberForm () {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Enter registered mobile number to receive <br />
-                        the OTP</Form.Label>
+                            the OTP</Form.Label>
                     </Form.Group>
                     <Form.Group>
-                       <Form.Label></Form.Label>
-                       </Form.Group>
+                        <Form.Label></Form.Label>
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Mobile number</Form.Label>
                         <PhoneInput country={'in'}
@@ -84,8 +84,8 @@ function SignUpMobileNumberForm () {
                         <div className="error"><small>{errors.mobileNumber}</small></div>
                     </Form.Group>
                     <Form.Group>
-                       <Form.Label></Form.Label>
-                       </Form.Group>
+                        <Form.Label></Form.Label>
+                    </Form.Group>
                     <div className="d-grid gap-2">
                         <Button variant="primary" size="lg" onClick={handleValidate}>
                             Send One Time Password (OTP)
