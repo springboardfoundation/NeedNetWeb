@@ -31,9 +31,8 @@ function SetNewPassword(){
         event.preventDefault();
         setValidated(true);
 
-
-        let error = validation(values);
-        setErrors(errors);
+        let error = Validation(values);
+        setErrors(error);
 
         if(error !== ""){
             return;
@@ -58,9 +57,7 @@ function SetNewPassword(){
             console.error(error);
         }
     }
-
-
-    function validation(values:any){
+    function Validation(values:any){
         const errors:any={};
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
@@ -76,6 +73,7 @@ function SetNewPassword(){
         else if(values.conPassword !== values.password){
             errors.conPassword="Password didnt match";
         }
+        console.log(errors.password);
         return errors;
     }
     return(
@@ -95,22 +93,20 @@ function SetNewPassword(){
                     <Form.Group>
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password"  placeholder="Enter password"
-                                      name="password"
-                                      onChange={(handleChange)}
-                                      isInvalid={errors.password} required/>
+                                      name="password"   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                      onChange={handleChange} required/>
                         <Form.Label>Min 8,Max 50 characters</Form.Label><br/>
                         <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                     </Form.Group><br/>
                     <Form.Group>
                         <Form.Label>Confirm password</Form.Label>
                         <Form.Control type="password"  placeholder="Enter password"
-                                      name="conPassword"
-                                      onChange={handleChange}
-                                      isInvalid={errors.conPassword} required/>
+                                      name="conPassword" pattern={values.password}
+                                      onChange={handleChange} required/>
                         <Form.Control.Feedback type="invalid">{errors.conPassword}</Form.Control.Feedback>
                     </Form.Group><br/>
                     <div className="d-grid gap-2">
-                        <Button  type="submit" variant="primary" size="lg">
+                        <Button  type="submit" variant="primary" size="lg"onClick={handleValidate}>
                             Sign In
                         </Button>
                     </div>

@@ -6,7 +6,9 @@ import 'react-phone-input-2/lib/style.css'
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import axios from "axios/index";
 function ForgetPasswordOtpForm() {
     const navigate = useNavigate()
@@ -52,7 +54,7 @@ function ForgetPasswordOtpForm() {
                 .then(res => {
                     let status = res.data.status;
                     if (status) {
-                        navigate(`/setnewpassword`,{state:{mobileNumber:mobileNumber}})
+                        navigate(`/src/screens/forget_password/setnewpassword`,{state:{mobileNumber:mobileNumber}})
                     } else {
                         alert("Invalid OTP");
                     }
@@ -84,7 +86,7 @@ function ForgetPasswordOtpForm() {
                     <br/>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Mobile number</Form.Label>
-                        <PhoneInput country={'in'} disabled={true} />
+                        <PhoneInput country={'in'} disabled={true} value={location.state.mobileNumber}/>
                     </Form.Group><br/>
                     <Form.Group>
                         <Form.Label>one Time password(OTP)</Form.Label>
