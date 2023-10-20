@@ -122,6 +122,9 @@
 .error{
     color:#DC3545;
 }
+.invalid-feedback{
+    color:#DC3545;
+}
 
 /* Responsive layout - makes a one column-layout instead of a two-column layout */
 @media (max-width: 800px) {

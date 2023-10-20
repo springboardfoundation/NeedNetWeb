@@ -18,7 +18,7 @@ function SignUpUserProfileForm () {
     const navigate = useNavigate()
 
     const location = useLocation();
-    const [validated, setValidated] = useState(false);
+   // const [validated, setValidated] = useState(false);
     const [isValid, setIsValid] = useState(true);
 
 
@@ -52,7 +52,7 @@ function SignUpUserProfileForm () {
         console.log(values.email);
 
         // @ts-ignore
-        setValidated(true);
+       // setValidated(true);
         const mobileNumber = location.state.mobileNumber;
 
         let error = validation(values);
@@ -123,7 +123,7 @@ function SignUpUserProfileForm () {
         if(values.terms === ""){
             errors.terms="Please accept terms and conditions"
         }
-        console.log(errors.email);
+        console.log(errors.gender);
         return errors;
     }
     return (
@@ -132,7 +132,7 @@ function SignUpUserProfileForm () {
                    <h1 className="networkForNeedTitle">  Network for need </h1>
             </div>
             <div className="flex-item-right-user-profile-form">
-                <Form noValidate validated={validated} onSubmit={handleValidate}>
+                <Form>
                     <Form.Group>
                         <Alert.Heading>User profile</Alert.Heading>
                     </Form.Group>
@@ -144,14 +144,20 @@ function SignUpUserProfileForm () {
                        <Form.Label>Full name</Form.Label>
                        <Form.Control type="text" placeholder="Enter a full name"
                                      name="fullName"
-                                     onChange={handleChange} required/>
+                                     onChange={handleChange}
+                                     onBlur={handleValidate}
+                                     isInvalid={!!errors.fullName}
+                                     isValid={!!values.fullName && !errors.fullName}/>
                         <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                        <Form.Label>Email address</Form.Label>
                        <Form.Control type="email" placeholder="Enter a valid email address"
                                      name="email"
-                                     onChange={handleChange} required/>
+                                     onChange={handleChange}
+                                     onBlur={handleValidate}
+                                     isInvalid={!!errors.email}
+                                     isValid={!!values.email && !errors.email}/>
                         <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                     </Form.Group>
 
@@ -167,13 +173,19 @@ function SignUpUserProfileForm () {
                         <Col>
                             <Form.Control type="password"  placeholder="Enter password"
                                           name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                          onChange={(handleChange)} required/>
+                                          onChange={(handleChange)}
+                                          onBlur={handleValidate}
+                                          isInvalid={!!errors.password}
+                                          isValid={!!values.password && !errors.password}/>
                             <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                         </Col>
                         <Col>
                            <Form.Control type="password"  placeholder="Enter password"
-                            name="conPassword"  pattern={values.password}
-                            onChange={handleChange} required/>
+                                         name="conPassword"  pattern={values.password}
+                                         onChange={handleChange}
+                                         onBlur={handleValidate}
+                                         isInvalid={!!errors.conPassword}
+                                         isValid={!!values.conPassword && !errors.conPassword}/>
                             <Form.Control.Feedback type="invalid">{errors.conPassword}</Form.Control.Feedback>
                         </Col>
                     </Row>
@@ -189,31 +201,46 @@ function SignUpUserProfileForm () {
                       <Col>
                         <Form.Control type="text" placeholder="Enter your age"
                                       name="age"
-                                      onChange={handleChange} required/>
+                                      onChange={handleChange}
+                                      onBlur={handleValidate}
+                                      isInvalid={!!errors.age}
+                                      isValid={!!values.age && !errors.age}/>
                           <Form.Control.Feedback type="invalid">{errors.age}</Form.Control.Feedback>
                       </Col>
                       <Col>
                         <Form.Check label="Male" type="radio" onChange={handleChange}
                                     name="gender"
-                                    value="Male" required/>
+                                    value="Male" required
+                                    onBlur={handleValidate}
+                                    isInvalid={!!errors.gender && !values.gender}
+                                    isValid={values.gender === "Male" && !errors.gender}/>
                         <Form.Check label="Female" type="radio" onChange={handleChange}
                                     name="gender"
-                                    value="Female" required/>
+                                    value="Female" required
+                                    onBlur={handleValidate}
+                                    isInvalid={!!errors.gender && !values.gender}
+                                    isValid={values.gender === "Female" && !errors.gender}/>
                         <Form.Check label="Other"type="radio" onChange={handleChange}
                                     name="gender"
                                     value="Other"
+                                    onBlur={handleValidate}
+                                    isInvalid={!!errors.gender && !values.gender}
+                                    isValid={values.gender === "Other" && !errors.gender}
                                     feedback={errors.gender}
-                                    feedbackType="invalid" required/>
+                                    feedbackType="invalid"/>
                       </Col>
                     </Row>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                        <Form.Check label="I accept Terms & Conditions" type="radio"  onChange={handleChange}
                                    name="terms" value="Accepted"
+                                   onBlur={handleValidate}
+                                   isInvalid={!!errors.terms && !values.terms}
+                                   isValid={values.terms === "Accepted" && !errors.terms}
                                    feedback={errors.terms}
-                                   feedbackType="invalid" required/>
+                                   feedbackType="invalid" />
                     </Form.Group>
                     <div className="d-grid gap-2">
-                        <Button type="submit" variant="primary" size="lg" onClick={handleValidate}>
+                        <Button  variant="primary" size="lg" onClick={handleValidate}>
                             Complete registration
                         </Button>
                     </div>
