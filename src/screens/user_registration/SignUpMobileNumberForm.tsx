@@ -21,17 +21,21 @@ function SignUpMobileNumberForm () {
         setMobileNumber(event);
     }
 
+    //validate mobilenumber and password
     const handleValidate = (event:any) => {
         event.preventDefault();
 
         let error = validation(mobileNumber);
         setErrors(error);
 
+        // If there are any errors, then don't proceed with the API call
         if(error.mobileNumber !== ""){
             return;
         }
 
+        // Call the API to validate the mobile number and password
         try {
+            // Send a POST request
             axios.post(`http://localhost:9001/api/v1/auth/getOtp/${mobileNumber}`)
                 .then(res => {
                     console.log(res);
