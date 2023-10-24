@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import {useLocation} from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import {VALIDATE_OTP_ENDPOINT} from "../../services/HttpApiConstants";
+import httpApi from "../../services/HttpApi";
+import {ROUTE_SIGN_UP_REGISTRATION_PROFILE} from "../../routes/RouteConstants";
 
 function SignUpOtpForm () {
     const navigate = useNavigate()
@@ -51,11 +54,11 @@ function SignUpOtpForm () {
         }
 
         try {
-            axios.post(`http://localhost:9001/api/v1/auth/validate/${mobileNumber}/${otp}`)
+            httpApi.post(VALIDATE_OTP_ENDPOINT(mobileNumber,otp))
                 .then(res => {
                     let status = res.data.status;
                     if (status) {
-                        navigate(`/signupuserprofileform`,{state:{mobileNumber:mobileNumber}})
+                        navigate(ROUTE_SIGN_UP_REGISTRATION_PROFILE,{state:{mobileNumber:mobileNumber}})
                     } else {
                         alert("Invalid OTP");
                     }

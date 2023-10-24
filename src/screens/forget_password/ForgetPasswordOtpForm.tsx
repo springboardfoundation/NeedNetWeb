@@ -6,10 +6,11 @@ import 'react-phone-input-2/lib/style.css'
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
-import {Link} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
-import axios from "axios/index";
+import {ROUTE_FORGOT_PASSWORD_CONFIRM_PASSWORD} from "../../routes/RouteConstants";
+import httpApi from "../../services/HttpApi";
+import {VALIDATE_OTP_ENDPOINT} from "../../services/HttpApiConstants";
 function ForgetPasswordOtpForm() {
     const navigate = useNavigate()
     const location = useLocation();
@@ -50,11 +51,11 @@ function ForgetPasswordOtpForm() {
         }
 
         try {
-            axios.post(`http://localhost:9001/api/v1/auth/validate/${mobileNumber}/${otp}`)
+            httpApi.post(VALIDATE_OTP_ENDPOINT(mobileNumber,otp))
                 .then(res => {
                     let status = res.data.status;
                     if (status) {
-                        navigate(`/src/screens/forget_password/setnewpassword`,{state:{mobileNumber:mobileNumber}})
+                        navigate(ROUTE_FORGOT_PASSWORD_CONFIRM_PASSWORD,{state:{mobileNumber:mobileNumber}})
                     } else {
                         alert("Invalid OTP");
                     }

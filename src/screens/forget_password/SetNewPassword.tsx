@@ -4,9 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import httpApi from "../../services/HttpApi";
 
 function SetNewPassword(){
 
@@ -39,7 +38,7 @@ function SetNewPassword(){
         }
 
         try {
-            axios.post(`http://localhost:9001/api/v1/auth/validate`)
+            httpApi.post(`http://localhost:9001/api/v1/auth/validate`)
                 .then(res => {
                     let status = res.data.status;
                     if (status) {
