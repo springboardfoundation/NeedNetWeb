@@ -7,8 +7,10 @@ import 'react-phone-input-2/lib/style.css'
 import Button from 'react-bootstrap/Button';
 import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import {ROUTE_FORGOT_PASSWORD_OTP_FORM} from "../../routes/RouteConstants";
+import HttpApi from "../../services/HttpApi";
+import {GET_OTP_ENDPOINT} from "../../services/HttpApiConstants";
 
 function ForgetPassword(){
 
@@ -32,10 +34,10 @@ function ForgetPassword(){
         }
 
         try {
-            axios.post(`http://localhost:9001/api/v1/auth/getOtp/${mobileNumber}`)
+            HttpApi.post(GET_OTP_ENDPOINT(mobileNumber))
                 .then(res => {
                     console.log(res);
-                    navigate(`/src/screens/forget_password/forgetpasswordotpform`,{state:{mobileNumber:res.data.mobileNumber}})
+                    navigate(ROUTE_FORGOT_PASSWORD_OTP_FORM,{state:{mobileNumber:res.data.mobileNumber}})
                 })
                 .catch(err => {
                     console.log(err);

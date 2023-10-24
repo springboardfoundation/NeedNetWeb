@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import './UserRegistration.css';
-import SignInBg from '../../assets/signin_bg.png'; // gives image path
+// gives image path
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Button from 'react-bootstrap/Button';
 import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
-import {Link, useNavigate} from "react-router-dom";
-import axios from "axios";
-import forgetPassword from "../forget_password/ForgetPassword";
+import {useNavigate} from "react-router-dom";
+import httpApi from '../../services/HttpApi';
+import {LOGIN_ENDPOINT} from "../../services/HttpApiConstants";
+import {ROUTE_FORGOT_PASSWORD_MOBILE_FORM, ROUTE_SIGN_UP_MOBILE_FORM} from "../../routes/RouteConstants";
 
 function SignInForm () {
 
@@ -45,11 +46,13 @@ function SignInForm () {
             return;
         }
 
+        console.log("handleValidate called");
+
         // Call the API to validate the mobile number and password
         try {
             // Send a POST request
-            const response = await axios.post(
-                `http://localhost:9001/api/v1/auth/getOtp/`,
+            const response = await httpApi.post(
+                LOGIN_ENDPOINT,
                 {// Send the mobile number and password in the request body as JSON
                     mobileNumber: mobileNumber,
                     password:values,
@@ -60,6 +63,8 @@ function SignInForm () {
                     },
                 }
             );
+
+            console.log(response.status)
             // If the response is 200 OK, then the mobile number and password is valid
             if (response.status === 200) {
                 // Mobile number and password is valid, navigate to the main screen
@@ -76,7 +81,7 @@ function SignInForm () {
             }
         } catch (error) {
             // Handle any errors here
-            console.error(error);
+            console.error("Unexpected error:");
         }
     }
 
@@ -152,7 +157,7 @@ function SignInForm () {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
 
-                        <Form.Label style={{float:'right'}} ><a href="src/screens/forget_password/forgetpassword">Forgot password</a></Form.Label>
+                        <Form.Label style={{float:'right'}} ><a href={ROUTE_FORGOT_PASSWORD_MOBILE_FORM}>Forgot password</a></Form.Label>
 
                         <Form.Control type="password" placeholder="Enter password"
                                       name="password"
@@ -172,7 +177,7 @@ function SignInForm () {
                         alignItems: 'center',
                         justifyContent: 'center',}} >
                         Don't have an account?
-                        <Alert.Link href="/signupmobilenumberform">sign_up</Alert.Link>
+                        <Alert.Link href={ROUTE_SIGN_UP_MOBILE_FORM}>sign_up</Alert.Link>
                     </Alert>
 
                 </Form>

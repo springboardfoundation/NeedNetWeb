@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import './UserRegistration.css';
-import SignUpBg from '../../assets/signup_bg.png'; // gives image path
+// gives image path
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Button from 'react-bootstrap/Button';
 import {Form} from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
-import { Link } from "react-router-dom";
-import axios from 'axios';
+import httpApi from '../../services/HttpApi';
+import {GET_OTP_ENDPOINT} from "../../services/HttpApiConstants";
 import { useNavigate } from "react-router-dom"
+import {ROUTE_SIGN_UP_OTP_FORM} from "../../routes/RouteConstants";
 
 
 function SignUpMobileNumberForm () {
@@ -36,10 +37,10 @@ function SignUpMobileNumberForm () {
         // Call the API to validate the mobile number and password
         try {
             // Send a POST request
-            axios.post(`http://localhost:9001/api/v1/auth/getOtp/${mobileNumber}`)
+            httpApi.post(GET_OTP_ENDPOINT(mobileNumber))
                 .then(res => {
                     console.log(res);
-                    navigate(`/signupotpform`,{state:{mobileNumber:res.data.mobileNumber}})
+                    navigate(ROUTE_SIGN_UP_OTP_FORM,{state:{mobileNumber:res.data.mobileNumber}})
                 })
                 .catch(err => {
                     console.log(err);

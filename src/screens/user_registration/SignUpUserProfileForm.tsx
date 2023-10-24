@@ -9,17 +9,14 @@ import Alert from 'react-bootstrap/Alert';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {useLocation, useNavigate} from 'react-router-dom';
-import axios from "axios/index";
-import validator from 'validator';
+import httpApi from '../../services/HttpApi';
+import {REGISTER_USER_ENDPOINT} from "../../services/HttpApiConstants";
 
 
 function SignUpUserProfileForm () {
 
     const navigate = useNavigate()
-
     const location = useLocation();
-   // const [validated, setValidated] = useState(false);
-    const [isValid, setIsValid] = useState(true);
     const [validated, setValidated] = useState(false);
 
 
@@ -60,7 +57,7 @@ function SignUpUserProfileForm () {
             return;
         }
         try {
-            axios.post(`http://localhost:9001/api/v1/user/register/${mobileNumber}`)
+            httpApi.post(REGISTER_USER_ENDPOINT(mobileNumber))
                 .then(res => {
                     let status = res.data.status;
                     if (status) {
