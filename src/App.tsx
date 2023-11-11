@@ -15,12 +15,14 @@ import {
     ROUTE_SIGN_UP_OTP_FORM,
     ROUTE_SIGN_UP_REGISTRATION_PROFILE
 } from "./routes/RouteConstants";
+import MainPage from "./screens/main_page/MainPage";
+import CreateNeed from "./screens/main_page/CreateNeed";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-         <Route path="/" element={<SignIn />} />
+         <Route path="/" element={<CreateNeed />} />
          <Route path={ROUTE_SIGN_UP_MOBILE_FORM} element={<SignUpMobileNumberForm />} />
          <Route path={ROUTE_SIGN_UP_OTP_FORM} element={<SignUpOtpForm />} />
          <Route path={ROUTE_SIGN_UP_REGISTRATION_PROFILE} element={<SignUpUserProfileForm />} />
